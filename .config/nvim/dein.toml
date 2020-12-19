@@ -1,0 +1,302 @@
+[[plugins]]
+repo = 'Shougo/dein.vim'
+
+
+
+[[plugins]]
+repo = 'joshdick/onedark.vim'
+hook_add = '''
+  colorscheme onedark
+'''
+
+
+[[plugins]]
+repo = 'w0rp/ale'
+
+
+[[plugins]]
+repo = 'airblade/vim-gitgutter'
+hook_add = '''
+  set signcolumn=yes
+  set updatetime=1000
+  nnoremap [gitgutter] <Nop>
+  nmap <C-h> [gitgutter]
+  nmap [gitgutter]j <Plug>GitGutterNextHunk
+  nmap [gitgutter]k <Plug>GitGutterPrevHunk
+  nmap [gitgutter]u <Plug>GitGutterUndoHunk
+'''
+
+
+[[plugins]]
+repo = 'tpope/vim-fugitive'
+hook_add = '''
+  command Gst :Gstatus
+  command Gdf :Gdiff
+  command Gbl :Gblame
+'''
+
+
+[[plugins]]
+repo = 'Shougo/denite.nvim'
+hook_add = '''
+  nnoremap [denite] <Nop>
+  nmap <C-d> [denite]
+  nnoremap <silent> [denite]g :<C-u>Denite grep -buffer-name=search-buffer-denite<CR>
+  nnoremap <silent> [denite]r :<C-u>Denite -resume -buffer-name=search-buffer-denite<CR>
+  nnoremap <silent> [denite]p :<C-u>Denite file_rec<CR>
+  call denite#custom#option('default', 'prompt', '>')
+  call denite#custom#option('_', 'highlight_matched_range', 'None')
+  call denite#custom#option('_', 'highlight_matched_char', 'None')
+  call denite#custom#map('insert', "<Tab>", '<denite:move_to_next_line>')
+  call denite#custom#map('insert', "<S-Tab>", '<denite:move_to_previous_line>')
+  call denite#custom#map('insert', "<C-t>", '<denite:do_action:tabopen>')
+  call denite#custom#map('insert', "<C-v>", '<denite:do_action:vsplit>')
+  call denite#custom#map('normal', "v", '<denite:do_action:vsplit>')
+  call denite#custom#var('grep', 'command', ['pt', '--follow', '--nogroup', '--nocolor', '--hidden'])
+  call denite#custom#var('grep', 'default_opts', [])
+  call denite#custom#var('grep', 'recursive_opts', [])
+  call denite#custom#var('file_rec', 'command', ['pt', '--follow', '--nocolor', '--nogroup', '--hidden', '-g', ''])
+'''
+
+
+[[plugins]]
+repo = 'osyo-manga/vim-anzu'
+hook_add = '''
+  nmap n <Plug>(anzu-n-with-echo)
+  nmap N <Plug>(anzu-N-with-echo)
+  nmap * <Plug>(anzu-star)
+  nmap # <Plug>(anzu-sharp)
+'''
+
+
+[[plugins]]
+repo = 'neoclide/coc.nvim'
+rev = 'release'
+on_i = 1
+merged = '0'
+hook_add = '''
+set hidden
+set nobackup
+set nowritebackup
+set cmdheight=2
+set updatetime=300
+set shortmess+=c
+set signcolumn=yes
+
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+inoremap <silent><expr> <c-space> coc#refresh()
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+nmap <silent> <C-k> <Plug>(coc-diagnostic-prev)
+nmap <silent> <C-j> <Plug>(coc-diagnostic-next)
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+nmap <leader>rn <Plug>(coc-rename)
+
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+augroup mygroup
+  autocmd!
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+nmap <leader>ac  <Plug>(coc-codeaction)
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+xmap if <Plug>(coc-funcobj-i)
+omap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap af <Plug>(coc-funcobj-a)
+xmap ic <Plug>(coc-classobj-i)
+omap ic <Plug>(coc-classobj-i)
+xmap ac <Plug>(coc-classobj-a)
+omap ac <Plug>(coc-classobj-a)
+
+if has('nvim-0.4.0') || has('patch-8.2.0750')
+  nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+  inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+  inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+  vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+endif
+
+nmap <silent> <C-s> <Plug>(coc-range-select)
+xmap <silent> <C-s> <Plug>(coc-range-select)
+
+command! -nargs=0 Format :call CocAction('format')
+
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+
+
+nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
+nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
+nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
+nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
+nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
+nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
+nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
+nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+'''
+
+
+[[plugins]]
+repo = 'kristijanhusak/defx-icons'
+
+
+[[plugins]]
+repo ='kristijanhusak/defx-git'
+
+
+[[plugins]]
+repo = 'Shougo/defx.nvim'
+depends = ['defx-git', 'defx-icons']
+hook_add = '''
+  call defx#custom#option('_', {
+        \ 'columns': 'indent:git:icons:filename:mark',
+        \ 'show_ignored_files': 1,
+        \ 'toggle': 1,
+        \ 'resume': 1,
+        \ })
+
+  nnoremap <silent>sf :<C-u>Defx -listed -resume
+        \ -buffer-name=tab`tabpagenr()`
+        \ -columns=indent:mark:git:icon:icons:filename:size
+        \ `expand('%:p:h')` -search=`expand('%:p')`<CR>
+  nnoremap <silent>fi :<C-u>Defx -new `expand('%:p:h')` -search=`expand('%:p')`<CR>
+
+  autocmd FileType defx call s:defx_my_settings()
+    function! s:defx_my_settings() abort
+      " Define mappings
+      nnoremap <silent><buffer><expr> <CR>
+      \ defx#is_directory() ? defx#do_action('open_or_close_tree') : defx#do_action('open')
+      nnoremap <silent><buffer><expr> c
+      \ defx#do_action('copy')
+      nnoremap <silent><buffer><expr> m
+      \ defx#do_action('move')
+      nnoremap <silent><buffer><expr> p
+      \ defx#do_action('paste')
+      nnoremap <silent><buffer><expr> l
+      \ defx#do_action('open')
+      nnoremap <silent><buffer><expr> E
+      \ defx#do_action('open', 'vsplit')
+      nnoremap <silent><buffer><expr> P
+      \ defx#do_action('preview')
+      nnoremap <silent><buffer><expr> o
+      \ defx#do_action('open_tree', 'toggle')
+      nnoremap <silent><buffer><expr> K
+      \ defx#do_action('new_directory')
+      nnoremap <silent><buffer><expr> N
+      \ defx#do_action('new_file')
+      nnoremap <silent><buffer><expr> M
+      \ defx#do_action('new_multiple_files')
+      nnoremap <silent><buffer><expr> C
+      \ defx#do_action('toggle_columns',
+      \                'mark:indent:icon:filename:type:size:time')
+      nnoremap <silent><buffer><expr> S
+      \ defx#do_action('toggle_sort', 'time')
+      nnoremap <silent><buffer><expr> d
+      \ defx#do_action('remove')
+      nnoremap <silent><buffer><expr> r
+      \ defx#do_action('rename')
+      nnoremap <silent><buffer><expr> !
+      \ defx#do_action('execute_command')
+      nnoremap <silent><buffer><expr> x
+      \ defx#do_action('execute_system')
+      nnoremap <silent><buffer><expr> yy
+      \ defx#do_action('yank_path')
+      nnoremap <silent><buffer><expr> .
+      \ defx#do_action('toggle_ignored_files')
+      nnoremap <silent><buffer><expr> ;
+      \ defx#do_action('repeat')
+      nnoremap <silent><buffer><expr> h
+      \ defx#do_action('cd', ['..'])
+      nnoremap <silent><buffer><expr> ~
+      \ defx#do_action('cd')
+      nnoremap <silent><buffer><expr> q
+      \ defx#do_action('quit')
+      nnoremap <silent><buffer><expr> <Space>
+      \ defx#do_action('toggle_select') . 'j'
+      nnoremap <silent><buffer><expr> *
+      \ defx#do_action('toggle_select_all')
+      nnoremap <silent><buffer><expr> j
+      \ line('.') == line('$') ? 'gg' : 'j'
+      nnoremap <silent><buffer><expr> k
+      \ line('.') == 1 ? 'G' : 'k'
+      nnoremap <silent><buffer><expr> <C-l>
+      \ defx#do_action('redraw')
+      nnoremap <silent><buffer><expr> <C-g>
+      \ defx#do_action('print')
+      nnoremap <silent><buffer><expr> cd
+      \ defx#do_action('change_vim_cwd')
+    endfunction
+
+    call defx#custom#column('icon', {
+      \ 'directory_icon': '▸',
+      \ 'opened_icon': '▾',
+      \ 'root_icon': ' ',
+      \ })
+    call defx#custom#column('git', 'indicators', {
+      \ 'Modified'  : 'M',
+      \ 'Staged'    : '✚',
+      \ 'Untracked' : '✭',
+      \ 'Renamed'   : '➜',
+      \ 'Unmerged'  : '═',
+      \ 'Ignored'   : '☒',
+      \ 'Deleted'   : '✖',
+      \ 'Unknown'   : '?'
+      \ })
+
+'''
+
+
+
+[[plugins]]
+repo = 'vim-airline/vim-airline'
+hook_add = '''
+let g:airline_theme = 'powerlineish'               " テーマの指定
+let g:airline#extensions#tabline#enabled = 1 " タブラインを表示
+let g:airline_powerline_fonts = 1            " Powerline Fontsを利用
+'''
+
+[[plugins]]
+repo = 'vim-airline/vim-airline-themes'
+
+[[plugins]]
+repo = 'ryanoasis/vim-devicons'
