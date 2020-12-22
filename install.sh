@@ -17,8 +17,12 @@ case ${Answer} in
   y|Y) 
 
     echo "Start Install Homebrew..."
+    apt install build-essential curl file
 
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    git clone https://github.com/Homebrew/brew ~/.linuxbrew/Homebrew
+    mkdir ~/.linuxbrew/bin
+    ln -s ~/.linuxbrew/Homebrew/bin/brew ~/.linuxbrew/bin
+    eval $(~/.linuxbrew/bin/brew shellenv)
 
     echo "Homebrew Installed" ;;
 
