@@ -19,10 +19,10 @@ case ${Answer} in
     echo "Start Install Homebrew..."
     apt install build-essential curl file
 
-    git clone https://github.com/Homebrew/brew ~/.linuxbrew/Homebrew
-    mkdir ~/.linuxbrew/bin
-    ln -s ~/.linuxbrew/Homebrew/bin/brew ~/.linuxbrew/bin
-    eval $(~/.linuxbrew/bin/brew shellenv)
+    git clone https://github.com/Homebrew/brew ~/linuxbrew/.linuxbrew/Homebrew
+    mkdir ~/linuxbrew/.linuxbrew/bin
+    ln -s ~/linuxbrew/.linuxbrew/Homebrew/bin/brew ~/.linuxbrew/bin
+    eval $(~/linuxbrew/.linuxbrew/bin/brew shellenv)
 
     echo "Homebrew Installed" ;;
 
