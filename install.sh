@@ -3,8 +3,6 @@
 set -ue
 cd
 
-echo "---------- password ----------"
-read -sp "enter your password:"__pass;
 
 echo -e "    .__  .__    ____   ____.___   _____    \n
   ____  __ __|  | |  |   \   \ /   /|   | /     \   \n
