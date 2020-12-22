@@ -4,7 +4,8 @@ set -ue
 cd
 
 
-echo -e "    .__  .__    ____   ____.___   _____    \n
+echo -e "\n
+             .__  .__    ____   ____.___   _____    \n
   ____  __ __|  | |  |   \   \ /   /|   | /     \   \n
  /    \|  |  \  | |  |    \   Y   / |   |/  \ /  \  \n
 |   |  \  |  /  |_|  |__   \     /  |   /    Y    \ \n
@@ -21,7 +22,7 @@ case ${Answer} in
 
     git clone https://github.com/Homebrew/brew ~/linuxbrew/.linuxbrew/Homebrew
     mkdir ~/linuxbrew/.linuxbrew/bin
-    ln -s ~/linuxbrew/.linuxbrew/Homebrew/bin/brew ~/.linuxbrew/bin
+    ln -s ~/linuxbrew/.linuxbrew/Homebrew/bin/brew ~/linuxbrew/.linuxbrew/bin
     eval $(~/linuxbrew/.linuxbrew/bin/brew shellenv)
 
     echo "Homebrew Installed" ;;
