@@ -3,8 +3,6 @@
 set -ue
 cd
 
-echo "---------- password ----------"
-read -sp "enter your password:"__pass;
 
 echo -e "    .__  .__    ____   ____.___   _____    \n
   ____  __ __|  | |  |   \   \ /   /|   | /     \   \n
@@ -19,8 +17,12 @@ case ${Answer} in
   y|Y) 
 
     echo "Start Install Homebrew..."
+    apt install build-essential curl file
 
-    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    git clone https://github.com/Homebrew/brew ~/linuxbrew/.linuxbrew/Homebrew
+    mkdir ~/linuxbrew/.linuxbrew/bin
+    ln -s ~/linuxbrew/.linuxbrew/Homebrew/bin/brew ~/.linuxbrew/bin
+    eval $(~/linuxbrew/.linuxbrew/bin/brew shellenv)
 
     echo "Homebrew Installed" ;;
 
