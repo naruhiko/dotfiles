@@ -45,7 +45,6 @@ case ${Answer} in
       echo '/root/linuxbrew/.linuxbrew/bin/zsh' >> /etc/shells 
     fi
     chsh -s /root/linuxbrew/.linuxbrew/bin/zsh
-    /root/linuxbrew/.linuxbrew/bin/zsh
     FILE="${HOME}/.bash_profile"
         if [[ -e ${FILE} ]]; then
           source ${FILE} >> ~/.zshrc
@@ -72,7 +71,9 @@ echo "finished"
 echo "---------- zprezto ----------"
 echo "processing..."
 git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
-setopt EXTENDED_GLOB for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/^README.md(.N); do ln -s "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}" done
+(
+/root/linuxbrew/.linuxbrew/bin/zsh setopt EXTENDED_GLOB for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/^README.md(.N); do ln -s "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}" done
+)
 echo "finished"
 
 echo "---------- cloning naruhiko mods. ----------"
