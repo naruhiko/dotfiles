@@ -81,7 +81,6 @@ then
 else
   git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
 fi
-( /root/linuxbrew/.linuxbrew/bin/zsh setopt EXTENDED_GLOB for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/^README.md(.N); do ln -sf "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}" done )
 echo "finished"
 
 echo "---------- cloning naruhiko mods. ----------"
@@ -93,4 +92,6 @@ echo "---------- cloning naruhiko mods. ----------"
  ln -sf ~/dotfiles/.zprofile ~/.zprofile
  ln -sf ~/dotfiles/.zshenv ~/.zshenv
  ln -sf ~/dotfiles/.zshrc ~/.zshrc
+ echo 'source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"' >> .zshrc
 echo "FINISHED!"
+/root/linuxbrew/.linuxbrew/bin/zsh
