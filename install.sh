@@ -15,18 +15,22 @@ echo -e "\n
 echo " ------------ Homebrew ------------"
 read -p "Install Homebrew ? (y/n)" Answer < /dev/tty
 case ${Answer} in
-  y|Y) 
+  y|Y)
+    if [[ -d ~/linuxbrew ]]
+    then
+      echo "Already exist"
+    else
+      echo "Start Install Homebrew..."
+      apt install build-essential curl file
 
-    echo "Start Install Homebrew..."
-    apt install build-essential curl file
+      git clone https://github.com/Homebrew/brew ~/linuxbrew/.linuxbrew/Homebrew
+      mkdir ~/linuxbrew/.linuxbrew/bin
+      ln -sf ~/linuxbrew/.linuxbrew/Homebrew/bin/brew ~/linuxbrew/.linuxbrew/bin
+      eval $(~/linuxbrew/.linuxbrew/bin/brew shellenv)
 
-    git clone https://github.com/Homebrew/brew ~/linuxbrew/.linuxbrew/Homebrew
-    mkdir ~/linuxbrew/.linuxbrew/bin
-    ln -s ~/linuxbrew/.linuxbrew/Homebrew/bin/brew ~/linuxbrew/.linuxbrew/bin
-    eval $(~/linuxbrew/.linuxbrew/bin/brew shellenv)
 
-    echo "Homebrew Installed" ;;
-
+      echo "Homebrew Installed" 
+    fi ;;
   n|N)
     echo "Skipped" ;;
 
@@ -36,8 +40,10 @@ echo "------------ zsh ------------"
 read -p "Change the Shell into zsh ? (y/n)" Answer < /dev/tty
 case ${Answer} in
   y|Y)
+    echo 'Defaults env_keep += "PATH"' >> /etc/sudoers
+    sed -i -e "s/Defaults secure_path/#Defaults secure_path"
     brew install zsh zsh-syntax-highlighting
-    echo ${__pass} | sudo -S -- sh -c 'echo '/usr/local/bin/zsh' >> /etc/shells' 
+    sudo -S -- sh -c 'echo '/usr/local/bin/zsh' >> /etc/shells' 
     chsh -s /usr/local/bin/zsh 
     FILE="${HOME}/.bash_profile"
 
