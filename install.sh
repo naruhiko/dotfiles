@@ -59,9 +59,14 @@ esac
 
 echo "---------- nvim & tmux ----------"
 echo "processing..."
-mkdir .config
-cd .config
-mkdir nvim
+if [[ -d .config ]]
+then
+  echo "Already exist config file"
+else
+  mkdir .config
+  cd .config
+  mkdir nvim
+fi
 cd
 brew install nvim tmux python
 curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh
