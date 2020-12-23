@@ -41,7 +41,7 @@ read -p "Change the Shell into zsh ? (y/n)" Answer < /dev/tty
 case ${Answer} in
   y|Y)
     echo 'Defaults env_keep += "PATH"' >> /etc/sudoers
-    sed -i -e "s/Defaults secure_path/#Defaults secure_path"
+    sed -i -e "s/Defaults secure_path/\#Defaults secure_path/g"
     brew install zsh zsh-syntax-highlighting
     sudo -S -- sh -c 'echo '/usr/local/bin/zsh' >> /etc/shells' 
     chsh -s /usr/local/bin/zsh 
