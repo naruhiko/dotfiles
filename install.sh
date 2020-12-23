@@ -43,7 +43,7 @@ case ${Answer} in
     echo 'Defaults env_keep += "PATH"' >> /etc/sudoers
     sed -i -e "s/Defaults secure_path/\#Defaults secure_path/g" /etc/sudoers
     brew install zsh zsh-syntax-highlighting
-    sudo -S -- sh -c 'echo '/usr/local/bin/zsh' >> /etc/shells' 
+    echo '/usr/local/bin/zsh' >> /etc/shells 
     chsh -s /usr/local/bin/zsh 
     FILE="${HOME}/.bash_profile"
 
@@ -79,12 +79,12 @@ setopt EXTENDED_GLOB for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/^README.
 echo "finished"
 
 echo "---------- cloning naruhiko mods. ----------"
-sudo ln -s ~/dotfiles/.config/nvim/dein.toml ~/.config/nvim/dein.toml
-sudo ln -s ~/dotfiles/.config/nvim/init.vim ~/.config/nvim/init.vim
-sudo ln -s ~/dotfiles/.config/nvim/coc-settings.json ~/.config/nvim/coc-settings.json
-sudo ln -s ~/dotfiles/.tmux.conf ~/.tmux.conf
-sudo ln -sf ~/dotfiles/.zpreztorc ~/.zpreztorc
-sudo ln -sf ~/dotfiles/.zprofile ~/.zprofile
-sudo ln -sf ~/dotfiles/.zshenv ~/.zshenv
-sudo ln -sf ~/dotfiles/.zshrc ~/.zshrc
+ ln -s ~/dotfiles/.config/nvim/dein.toml ~/.config/nvim/dein.toml
+ ln -s ~/dotfiles/.config/nvim/init.vim ~/.config/nvim/init.vim
+ ln -s ~/dotfiles/.config/nvim/coc-settings.json ~/.config/nvim/coc-settings.json
+ ln -s ~/dotfiles/.tmux.conf ~/.tmux.conf
+ ln -sf ~/dotfiles/.zpreztorc ~/.zpreztorc
+ ln -sf ~/dotfiles/.zprofile ~/.zprofile
+ ln -sf ~/dotfiles/.zshenv ~/.zshenv
+ ln -sf ~/dotfiles/.zshrc ~/.zshrc
 echo "FINISHED!"
