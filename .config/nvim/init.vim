@@ -39,18 +39,18 @@ if has('mouse')
   set mouse=a
 endif
 
-let g:python3_host_prog = expand('/usr/local/bin/python3')
+let g:python3_host_prog = expand('/root/linuxbrew/.linuxbrew/bin/python3')
 let g:python_host_prog = expand('/usr/bin/python')
 
 "dein Scripts-----------------------------
 if &compatible
   set nocompatible               " Be iMproved
 endif
-set runtimepath+=~/.dotfiles/.config/nvim/dein/repos/github.com/Shougo/dein.vim
-if dein#load_state('~/.config/nvim/dein')
-  call dein#begin('~/.config/nvim/dein')
+set runtimepath+=/root/.config/nvim/dein/repos/github.com/Shougo/dein.vim
+if dein#load_state('/root/.config/nvim/dein')
+  call dein#begin('/root/config/nvim/dein')
 
-  call dein#load_toml('~/.config/nvim/dein.toml', {'lazy': 0})
+  call dein#load_toml('/root/config/nvim/dein.toml', {'lazy': 0})
 
   call dein#end()
   call dein#save_state()
