@@ -45,6 +45,7 @@ case ${Answer} in
       echo '/root/linuxbrew/.linuxbrew/bin/zsh' >> /etc/shells 
     fi
     chsh -s /root/linuxbrew/.linuxbrew/bin/zsh
+    /root/linuxbrew/.linuxbrew/bin/zsh
     FILE="${HOME}/.bash_profile"
         if [[ -e ${FILE} ]]; then
           source ${FILE} >> ~/.zshrc
@@ -59,7 +60,10 @@ esac
 
 echo "---------- nvim & tmux ----------"
 echo "processing..."
-mkdir .config/nvim
+mkdir .config
+cd .config
+mkdir nvim
+cd
 brew install nvim tmux python
 curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh
 sh ./installer.sh ~/.config/nvim/dein
