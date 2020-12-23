@@ -75,7 +75,12 @@ echo "finished"
 
 echo "---------- zprezto ----------"
 echo "processing..."
-git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
+if [[ -d /root/.zprezto ]]
+then
+  echo "Skipped cloning zpezto"
+else
+  git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
+fi
 ( /root/linuxbrew/.linuxbrew/bin/zsh setopt EXTENDED_GLOB for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/^README.md(.N); do ln -sf "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}" done )
 echo "finished"
 
