@@ -62,4 +62,3 @@ alias less='less -NM'
 export CLICOLOR=1
 export LSCOLORS=DxGxcxdxCxegedabagacad
 source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
-export PATH="/usr/local/opt/llvm/bin:$PATH"

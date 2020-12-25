@@ -9,24 +9,19 @@ echo -e "\n
  /    \|  |  \  | |  |    \   Y   / |   |/  \ /  \  
 |   |  \  |  /  |_|  |__   \     /  |   /    Y    \ 
 |___|  /____/|____/____/    \___/   |___\____|__  / 
-     \/                                         \/  "
+     \/                                         \/  
+                    for Mac
+                  ver 2020.12
+                Naruhiko Nagata
+                \n"
 
 echo " ------------ Homebrew ------------"
 read -p "Install Homebrew ? (y/n)" Answer < /dev/tty
 case ${Answer} in
-  y|Y)
-    if [[ -d ~/linuxbrew ]]
-    then
-      echo "Already exist"
-    else
+  y|Y|*)
       echo "Start Install Homebrew..."
-      apt install build-essential curl file
-      git clone https://github.com/Homebrew/brew ~/linuxbrew/.linuxbrew/Homebrew
-      mkdir ~/linuxbrew/.linuxbrew/bin
-      ln -sf ~/linuxbrew/.linuxbrew/Homebrew/bin/brew ~/linuxbrew/.linuxbrew/bin
-      eval $(~/linuxbrew/.linuxbrew/bin/brew shellenv)
+      /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
       echo "Homebrew Installed" 
-    fi ;;
   n|N)
     echo "Skipped" ;;
 esac
@@ -35,16 +30,10 @@ echo "------------ zsh ------------"
 read -p "Change the Shell into zsh ? (y/n)" Answer < /dev/tty
 case ${Answer} in
   y|Y)
-    if [[ -d ~/linuxbrew/.linuxbrew/bin/zsh ]]
-    then
-      echo "Already exist"
-    else
-      echo 'Defaults env_keep += "PATH"' >> /etc/sudoers
-      sed -i -e "s/Defaults secure_path/\#Defaults secure_path/g" /etc/sudoers
-      brew install zsh zsh-syntax-highlighting
-      echo '/root/linuxbrew/.linuxbrew/bin/zsh' >> /etc/shells 
+      brew install zsh
+      echo '/usr/local/bin/zsh' >> /etc/shells 
     fi
-    chsh -s /root/linuxbrew/.linuxbrew/bin/zsh
+    chsh -s /usr/local/bin/zsh
     FILE="${HOME}/.bash_profile"
         if [[ -e ${FILE} ]]; then
           source ${FILE} >> ~/.zshrc
@@ -68,7 +57,7 @@ else
   mkdir nvim
 fi
 cd
-brew install nvim tmux python
+brew install nvim tmux python3
 curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh
 sh ./installer.sh ~/.config/nvim/dein
 echo "finished"
@@ -83,7 +72,7 @@ else
 fi
 echo "finished"
 
-echo "---------- cloning naruhiko mods. ----------"
+echo "---------- cloning mods. ----------"
  ln -s ~/dotfiles/.config/nvim/dein.toml ~/.config/nvim/dein.toml
  ln -s ~/dotfiles/.config/nvim/init.vim ~/.config/nvim/init.vim
  ln -s ~/dotfiles/.config/nvim/coc-settings.json ~/.config/nvim/coc-settings.json
@@ -94,4 +83,4 @@ echo "---------- cloning naruhiko mods. ----------"
  ln -sf ~/dotfiles/.zshrc ~/.zshrc
  echo 'source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"' >> .zshrc
 echo "FINISHED!"
-/root/linuxbrew/.linuxbrew/bin/zsh
+/usr/local/bin/zsh
