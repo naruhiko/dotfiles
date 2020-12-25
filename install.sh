@@ -22,6 +22,7 @@ case ${Answer} in
       echo "Start Install Homebrew..."
       /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
       echo "Homebrew Installed" 
+      ;;
   n|N)
     echo "Skipped" ;;
 esac
@@ -32,7 +33,6 @@ case ${Answer} in
   y|Y)
       brew install zsh
       echo '/usr/local/bin/zsh' >> /etc/shells 
-    fi
     chsh -s /usr/local/bin/zsh
     FILE="${HOME}/.bash_profile"
         if [[ -e ${FILE} ]]; then
