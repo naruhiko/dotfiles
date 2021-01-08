@@ -10,8 +10,6 @@ hook_add = '''
 '''
 
 
-[[plugins]]
-repo = 'w0rp/ale'
 
 
 [[plugins]]

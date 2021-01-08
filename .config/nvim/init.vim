@@ -39,8 +39,10 @@ if has('mouse')
   set mouse=a
 endif
 
+
 let g:python3_host_prog = expand('/usr/local/bin/python3')
 let g:python_host_prog = expand('/usr/local/bin/python')
+let g:ruby_host_prog = expand('/usr/local/opt/ruby/bin/ruby')
 
 "dein Scripts-----------------------------
 if &compatible
